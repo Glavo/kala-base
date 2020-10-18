@@ -15,7 +15,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
 
 group 'asia.kala'
-version '0.4.0-SHAPSHOT'
+version '0.4.0'
 
 modularity.mixedJavaRelease 8
 
