@@ -18,10 +18,6 @@ public final class EmptyTuple extends Tuple {
     private EmptyTuple() {
     }
 
-    //
-    // -- Tuple
-    //
-
     @Override
     public final int arity() {
         return 0;
@@ -44,10 +40,6 @@ public final class EmptyTuple extends Tuple {
         return new Tuple1<>(head);
     }
 
-    //
-    // -- Object
-    //
-
     /**
      * {@inheritDoc}
      */
@@ -63,10 +55,6 @@ public final class EmptyTuple extends Tuple {
     public final String toString() {
         return "()";
     }
-
-    //
-    // -- Serializable
-    //
 
     private Object readResolve() {
         return INSTANCE;

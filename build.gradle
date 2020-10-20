@@ -15,7 +15,8 @@ apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
 
 group 'asia.kala'
-version '0.4.0'
+// SNAPSHOT version ends with "-SNAPSHOT"
+version '0.5.0'
 
 modularity.mixedJavaRelease 8
 
@@ -110,13 +111,6 @@ bintray {
 tasks.withType(GenerateModuleMetadata) {
     enabled = false
 }
-
-task travisPublish() {}
-
-if (!project.version.toString().endsWith("SHAPSHOT")) {
-    travisPublish.dependsOn(bintrayUpload)
-}
-
 
 test {
     testLogging.showStandardStreams = true

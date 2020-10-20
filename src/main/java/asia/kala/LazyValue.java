@@ -1,17 +1,21 @@
 package asia.kala;
 
 import asia.kala.annotations.Covariant;
+import asia.kala.iterator.AbstractIterator;
 import asia.kala.traversable.Mappable;
+import asia.kala.traversable.Traversable;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public final class LazyValue<@Covariant T> implements Mappable<T>, Serializable {
+public final class LazyValue<@Covariant T> implements Traversable<T>, Mappable<T>, Serializable {
     private static final long serialVersionUID = 7403692951772568981L;
 
     private transient volatile Supplier<? extends T> supplier;
@@ -67,6 +71,29 @@ public final class LazyValue<@Covariant T> implements Mappable<T>, Serializable 
     public final <U> LazyValue<U> map(@NotNull Function<? super T, ? extends U> mapper) {
         Objects.requireNonNull(mapper);
         return LazyValue.of(() -> mapper.apply(get()));
+    }
+
+    @NotNull
+    @Override
+    public final Iterator<T> iterator() {
+        return new AbstractIterator<T>() {
+            private boolean hasNext = true;
+
+            @Override
+            public final boolean hasNext() {
+                return hasNext;
+            }
+
+            @Override
+            public final T next() {
+                if (hasNext) {
+                    hasNext = false;
+                    return get();
+                } else {
+                    throw new NoSuchElementException();
+                }
+            }
+        };
     }
 
     @Override

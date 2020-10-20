@@ -16,6 +16,8 @@ import java.util.function.Consumer;
 import java.util.function.IntFunction;
 import java.util.function.Predicate;
 import java.util.stream.Collector;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 @SuppressWarnings("unchecked")
 public interface Traversable<@Covariant T> extends AnyTraversable<T, Iterator<T>, Object[], Option<T>, Consumer<? super T>, Predicate<? super T>> {
@@ -28,6 +30,28 @@ public interface Traversable<@Covariant T> extends AnyTraversable<T, Iterator<T>
 
     @NotNull
     Iterator<T> iterator();
+
+    @NotNull
+    default Spliterator<T> spliterator() {
+        final int ks = this.knownSize();
+        if (ks == 0) {
+            return Spliterators.emptySpliterator();
+        } else if (ks > 0) {
+            return Spliterators.spliterator(iterator(), ks, 0);
+        } else {
+            return Spliterators.spliteratorUnknownSize(iterator(), 0);
+        }
+    }
+
+    @NotNull
+    default Stream<T> stream() {
+        return StreamSupport.stream(spliterator(), false);
+    }
+
+    @NotNull
+    default Stream<T> parallelStream() {
+        return StreamSupport.stream(spliterator(), true);
+    }
 
     /**
      * {@inheritDoc}

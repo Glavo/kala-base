@@ -101,10 +101,6 @@ public final class Option<@Covariant T> extends OptionAny<T>
         return of(optional.orElse(null));
     }
 
-    //
-    // -- OptionContainer
-    //
-
     /**
      * Returns {@code true} if the {@code Option} contain a value, otherwise return {@code false}.
      *
@@ -221,10 +217,6 @@ public final class Option<@Covariant T> extends OptionAny<T>
         return isEmpty() ? Optional.empty() : Optional.of(Objects.requireNonNull(value));
     }
 
-    //
-    // -- Iterable
-    //
-
     @NotNull
     @Override
     public final Iterator<T> iterator() {
@@ -236,10 +228,6 @@ public final class Option<@Covariant T> extends OptionAny<T>
     public final Spliterator<T> spliterator() {
         return new OptionContainerIterator<>(value);
     }
-
-    //
-    // -- Object
-    //
 
     /**
      * {@inheritDoc}
@@ -277,16 +265,11 @@ public final class Option<@Covariant T> extends OptionAny<T>
         return "Option[" + value + "]";
     }
 
-    //
-    // -- Serializable
-    //
-
     private Object readResolve() {
         if (value == InternalEmptyTag.INSTANCE) {
             return None;
         }
         return this;
     }
-
 }
 

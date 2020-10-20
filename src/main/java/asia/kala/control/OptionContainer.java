@@ -276,10 +276,6 @@ interface OptionContainer<@Covariant T> extends Iterable<T>, Mappable<T>, Traver
         return stream().parallel();
     }
 
-    //
-    // -- Iterable
-    //
-
     /**
      * {@inheritDoc}
      */
@@ -295,6 +291,7 @@ interface OptionContainer<@Covariant T> extends Iterable<T>, Mappable<T>, Traver
     /**
      * {@inheritDoc}
      */
+    @NotNull
     @Override
     default Spliterator<T> spliterator() {
         if (isDefined()) {
