@@ -83,6 +83,14 @@ public interface Traversable<@Covariant T> extends AnyTraversable<T, Iterator<T>
         return Iterators.sameElements(iterator(), other.iterator());
     }
 
+    default boolean sameElements(@NotNull Iterable<?> other, boolean identity) {
+        if (!identity) {
+            return sameElements(other);
+        } else {
+            return Iterators.sameElements(iterator(), other.iterator(), true);
+        }
+    }
+
     /**
      * Tests whether any element of this {@code Traversable} match the {@code predicate}.
      *

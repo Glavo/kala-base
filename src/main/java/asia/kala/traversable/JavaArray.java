@@ -79,6 +79,7 @@ public final class JavaArray {
         }
     }
 
+    @NotNull
     public static <E> E[] fill(@NotNull IntFunction<E[]> generator, int n, E value) {
         if (n <= 0) {
             return generator.apply(0);
@@ -90,6 +91,7 @@ public final class JavaArray {
         return ans;
     }
 
+    @NotNull
     public static <E> E[] fill(@NotNull IntFunction<E[]> generator, int n, @NotNull Supplier<? extends E> supplier) {
         if (n <= 0) {
             return generator.apply(0);
@@ -101,6 +103,7 @@ public final class JavaArray {
         return ans;
     }
 
+    @NotNull
     public static <E> E[] fill(@NotNull IntFunction<E[]> generator, int n, @NotNull IntFunction<? extends E> supplier) {
         if (n <= 0) {
             return generator.apply(0);
@@ -146,14 +149,17 @@ public final class JavaArray {
         return res;
     }
 
+    @NotNull
     public static <E> E[][] windowed(E @NotNull [] array, int size) {
         return windowed(array, size, 1, false);
     }
 
+    @NotNull
     public static <E> E[][] windowed(E @NotNull [] array, int size, int step) {
         return windowed(array, size, step, false);
     }
 
+    @NotNull
     public static <E> E[][] windowed(E @NotNull [] array, int size, int step, boolean partialWindows) {
         final int arrayLength = array.length;
         if (size <= 0 || step <= 0) {
@@ -397,11 +403,13 @@ public final class JavaArray {
         return e;
     }
 
+    @Nullable
     @Contract(pure = true)
     public static <E extends Comparable<E>> E minOrNull(E @NotNull [] array) {
         return (E) Unsafe.minOrNull(array);
     }
 
+    @Nullable
     @Contract(pure = true)
     public static <E> E minOrNull(E @NotNull [] array, @NotNull Comparator<? super E> comparator) {
         final int length = array.length;

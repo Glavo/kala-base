@@ -161,6 +161,19 @@ public final class Iterators {
         return it1.hasNext() == it2.hasNext();
     }
 
+    public static boolean sameElements(@NotNull Iterator<?> it1, @NotNull Iterator<?> it2, boolean identity) {
+        if (!identity) {
+            return sameElements(it1, it2);
+        }
+
+        while (it1.hasNext() && it2.hasNext()) {
+            if (it1.next() != it2.next()) {
+                return false;
+            }
+        }
+        return it1.hasNext() == it2.hasNext();
+    }
+
     public static <E> int count(@NotNull Iterator<? extends E> it, @NotNull Predicate<? super E> predicate) {
         int c = 0;
         while (it.hasNext()) {
