@@ -195,10 +195,12 @@ public interface AnyTraversable<
     @NotNull
     T_ARRAY toArray();
 
+    @NotNull
     default <A extends Appendable> A joinTo(@NotNull A buffer) {
         return joinTo(buffer, ", ");
     }
 
+    @NotNull
     default <A extends Appendable> A joinTo(@NotNull A buffer, CharSequence separator) {
         return joinTo(buffer, separator, "", "");
     }
@@ -210,14 +212,17 @@ public interface AnyTraversable<
             CharSequence separator, CharSequence prefix, CharSequence postfix
     );
 
+    @NotNull
     default String joinToString() {
         return joinTo(new StringBuilder()).toString();
     }
 
+    @NotNull
     default String joinToString(CharSequence separator) {
         return joinTo(new StringBuilder(), separator).toString();
     }
 
+    @NotNull
     default String joinToString(CharSequence separator, CharSequence prefix, CharSequence postfix) {
         return joinTo(new StringBuilder(), separator, prefix, postfix).toString();
     }
