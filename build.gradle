@@ -16,7 +16,7 @@ apply plugin: 'com.jfrog.bintray'
 
 group 'asia.kala'
 // SNAPSHOT version ends with "-SNAPSHOT"
-version '0.5.1'
+version '0.6.0'
 
 modularity.mixedJavaRelease 8
 

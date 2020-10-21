@@ -1,6 +1,7 @@
 package asia.kala.iterator;
 
 import asia.kala.Tuple2;
+import asia.kala.annotations.DeprecatedReplaceWith;
 import asia.kala.control.OptionAny;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -134,6 +135,7 @@ public interface PrimIterator<
     void forEach(T_CONSUMER action);
 
     @Override
+    @DeprecatedReplaceWith("forEach(action)")
     default void forEachRemaining(T_CONSUMER action) {
         forEach(action);
     }

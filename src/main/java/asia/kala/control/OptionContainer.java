@@ -59,6 +59,10 @@ interface OptionContainer<@Covariant T> extends Iterable<T>, Mappable<T>, Traver
         return isDefined() ? get() : defaultValue;
     }
 
+    default T getOrElseGet(@NotNull Supplier<? extends T> supplier) {
+        return isDefined() ? get() : supplier.get();
+    }
+
     /**
      * Returns the value of the container if it is not empty, otherwise return the {@code null}.
      *
