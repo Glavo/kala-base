@@ -1,5 +1,6 @@
 package asia.kala.control;
 
+import asia.kala.annotations.DeprecatedReplaceWith;
 import asia.kala.traversable.Mappable;
 import asia.kala.traversable.Traversable;
 import asia.kala.annotations.Covariant;
@@ -55,12 +56,24 @@ interface OptionContainer<@Covariant T> extends Iterable<T>, Mappable<T>, Traver
      * @return the value of the container if the container {@link #isDefined()},
      * or the {@code defaultValue} if the container {@link #isEmpty()}
      */
-    default T getOrElse(T defaultValue) {
+    default T getOrDefault(T defaultValue) {
         return isDefined() ? get() : defaultValue;
     }
 
-    default T getOrElseGet(@NotNull Supplier<? extends T> supplier) {
+    @Deprecated
+    @DeprecatedReplaceWith("getOrDefault(defaultValue)")
+    default T getOrElse(T defaultValue) {
+        return getOrDefault(defaultValue);
+    }
+
+    default T getOrElse(@NotNull Supplier<? extends T> supplier) {
         return isDefined() ? get() : supplier.get();
+    }
+
+    @Deprecated
+    @DeprecatedReplaceWith("getOrElse(supplier)")
+    default T getOrElseGet(@NotNull Supplier<? extends T> supplier) {
+        return getOrElse(supplier);
     }
 
     /**
