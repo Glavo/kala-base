@@ -28,6 +28,11 @@ public final class OptionRef<T> implements Serializable {
         this.value = Option.some(value);
     }
 
+    public OptionRef(@NotNull Option<? extends T> value) {
+        Objects.requireNonNull(value);
+        this.value = Option.narrow(value);
+    }
+
     public final boolean isDefined() {
         return value.isDefined();
     }
